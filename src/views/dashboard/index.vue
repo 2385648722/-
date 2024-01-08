@@ -18,14 +18,12 @@
           <div class="charts-box" id="aster">
           </div>
         </div>
-
         <!-- echarts检测项目汇总 -->
         <div>
           <div class="echarts-i">
             <div class="table-title">
               检测项目汇总
             </div>
-
             <div class="echartsb">
               <div id="mains" class="left-echartsb"></div>
               <div class="right-echarte">
@@ -33,12 +31,9 @@
                 <div id="chartsr" class="right-echartsb"></div>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
-
     </el-tab-pane>
     <el-tab-pane class="pane" label="数据汇总" name="second">
       <!-- 数据汇总表格 -->
@@ -62,7 +57,6 @@
               <el-input placeholder="输入供应商名称" v-model="input" size="small" clearable>
               </el-input>
             </el-form-item>
-
             <el-form-item label="供应商编号：">
               <el-input placeholder="输入供应商编号" v-model="input1" size="small" clearable>
               </el-input>
@@ -79,12 +73,10 @@
               <el-input placeholder="输入检测人员" v-model="input172" size="small" clearable>
               </el-input>
             </el-form-item>
-
             <el-form-item label="结论：">
               <el-select v-model="form.region3" size="small" placeholder="请选择结论">
                 <el-option label="合格" value="shanghai"></el-option>
                 <el-option label="不合格" value="beijing2"></el-option>
-
               </el-select>
             </el-form-item>
 
@@ -94,9 +86,8 @@
               <el-button type="primary" size="small">确定</el-button>
             </el-form-item>
           </el-form>
-
         </div>
-        <el-table :data="tableDatas" height="840px" border style="width: 100%" align="center">
+        <el-table :data="tableDatas" height="794  " border style="width: 100%" align="center">
           <el-table-column prop="date" label="日期" align="center" />
           <el-table-column prop="namesr" label="分公司" align="center" />
           <el-table-column prop="supplier" label="供应商" align="center" />
@@ -119,23 +110,48 @@
             </template>
           </el-table-column>
           <el-table-column prop="man" label="检测人员" align="center" />
-          <el-table-column label="详情" align="center" />
-
+          <el-table-column label="详情" align="center">
+            <template>
+              <el-card>
+                <a href="https://book.yunzhan365.com/fkrsq/agfm/mobile/index.html" target="_blank">
+                  pdf文档
+                  <vue-pdf :src="pdfUrl"> </vue-pdf>
+                </a>
+              </el-card>
+            </template>
+          </el-table-column>
 
         </el-table>
+        <div class="pages">
+          <!-- @size-change="handleSizeChange"
+      @current-change="handleCurrentChange" -->
+          <el-pagination :current-page.sync="pages.page" :page-sizes.sync="pagesizes" :page-size="pages.pageSize"
+            layout="total, sizes, prev, pager, next, jumper" :total="400" background>
+          </el-pagination>
+        </div>
       </div>
     </el-tab-pane>
   </el-tabs>
-</template>
+</template> 
 
 <script>
 import * as echarts from 'echarts'
+import VuePdf from 'vue-pdf'
 
 export default {
-
+  components: {
+    'vue-pdf': VuePdf
+  },
 
   data() {
     return {
+      pages: {
+        page: 1,
+        pageSize: 10,
+        total: 0
+      },
+      pagesizes: [10, 20, 30],
+      pdfUrl: 'https://book.yunzhan365.com/fkrsq/agfm/mobile/index.html',
       activeName: 'second',
       value1: '',
       value2: '',
@@ -358,7 +374,23 @@ export default {
         result: '合格',
         man: '邱'
 
-      }, {
+      },
+      {
+        date: '2023-01-01',
+        namesr: '深圳市绿诗源生物技术有限公司',
+        supplier: 'A',
+        supplierNumber: 'BQ123456',
+        incoming: '鸡尾虾',
+        number: '10万',
+        detectionNumber: '孔雀石绿',
+        DetectionValue: '<80',
+        standard: '80',
+        ReInspection: '/',
+        result: '合格',
+        man: '邱'
+
+      },
+      {
         date: '2023-01-02',
         namesr: '深圳市绿诗源生物技术有限公司',
         supplier: 'B',
@@ -418,126 +450,13 @@ export default {
         man: '邱'
 
       },
-      {
-        date: '2023-01-06',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-07',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-08',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-09',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-10',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-11',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-12',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
-      {
-        date: '2023-01-13',
-        namesr: '深圳市绿诗源生物技术有限公司',
-        supplier: 'F',
-        supplierNumber: 'BQ122222',
-        incoming: '猪肉',
-        number: '10万',
-        detectionNumber: '瘦肉精',
-        DetectionValue: '<80',
-        standard: '80',
-        ReInspection: '/',
-        result: '合格',
-        man: '邱'
-      },
+
       ],
     }
   },
   mounted() {
     this.renderChart()
     this.renderChart1()
-
-
     this.renderCharts()
     this.renderChartr();
     this.renderChartrs()
@@ -654,13 +573,12 @@ export default {
       const option = {
         title: {
           text: '众客恒泰-月度分析',
-          left: 'center',
+          // left: 'center',
           textStyle: {
             color: '#333',
-
           },
-
         },
+
 
         tooltip: {
           trigger: 'axis',
@@ -668,28 +586,43 @@ export default {
             type: 'shadow'
           }
         },
+        legend: {
+          right: 30 // 设置标签靠右对齐
+        },
+        grid: {
+          left: '2%',
+          right: '3%',
+          bottom: '3%',
+          containLabel: true
+        },
+
         xAxis: {
+          type: 'category',
           data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
         },
         yAxis: {},
         series: [
           {
+            name: '合格',
             data: [10, 22, 28, 43, 49, 70, 67, 65, 45, 69, 32, 56],
             type: 'bar',
             stack: 'x',
             label: {
               show: true, // 显示标签
-              position: 'inside' // 标签位置，可以根据需要调整
+              position: 'inside', // 标签位置，可以根据需要调整
+              // formatter: '{c}'
             },
 
           },
           {
+            name: '不合格',
             data: [5, 4, 3, 5, 10, 20, 13, 14, 5, 10, 19, 23],
             type: 'bar',
             stack: 'x',
             label: {
               show: true, // 显示标签
-              position: 'inside' // 标签位置，可以根据需要调整
+              position: 'inside', // 标签位置，可以根据需要调整
+              // formatter: '{c}'
             }
 
           },
@@ -703,7 +636,7 @@ export default {
               show: true,
               position: 'inside',
               formatter: function (value) {
-                let arr =[15, 26, 31, 48, 59, 90, 80, 79,50,79, 51, 79,]
+                let arr = [15, 26, 31, 48, 59, 90, 80, 79, 50, 79, 51, 79,]
                 return arr[value.dataIndex]
               }
             },
@@ -791,7 +724,7 @@ export default {
               show: true,
               position: 'inside',
               formatter: function (value) {
-                let arr =[58, 98, 127, 170, 203, 243, 274, 307,311,336, 336, 401,]
+                let arr = [58, 98, 127, 170, 203, 243, 274, 307, 311, 336, 336, 401,]
                 return arr[value.dataIndex]
               }
             },
@@ -930,9 +863,6 @@ export default {
       option && myChart.setOption(option);
     },
 
-
-
-
   }
 }
 </script>
@@ -941,9 +871,11 @@ export default {
 .pane {
   font-size: 30px;
   overflow: hidden !important;
+
+  .pages {
+    margin-top: 10px;
+  }
 }
-
-
 
 .tatle-a {
   margin-top: 10px;
@@ -966,8 +898,6 @@ export default {
     width: 736.5px;
     height: 300px;
   }
-
-
 }
 
 .charts-box {
@@ -982,25 +912,22 @@ export default {
 
 // 图表汇总下
 .echarts-i {
-
   .table-title {
     font-weight: 700;
     font-size: 30px;
     text-align: center;
-    padding: 5px 0 20px 0;
+    padding: 25px 0 35px 0;
   }
 
   .echartsb {
     width: 100%;
     display: flex;
-    // justify-content: space-between;
-    height: 575px;
+    height: 540px;
 
     .left-echartsb {
       width: 736.5px;
       height: 470px;
     }
-
 
     .right-echarte {
       display: flex;
